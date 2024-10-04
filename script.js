@@ -5,8 +5,6 @@ const nextButton = document.getElementById('next-button');
 const scoreBoard = document.getElementById('score-board');
 const scoreElement = document.getElementById('score');
 const timerElement = document.getElementById('timer');
-const leaderboardElement = document.getElementById('leaderboard');
-const leaderboardList = document.getElementById('leaderboard-list');
 const nameContainer = document.getElementById('name-container');
 const playerNameInput = document.getElementById('player-name');
 const startButton = document.getElementById('start-button');
@@ -112,7 +110,6 @@ function startGame() {
     nextButton.style.display = 'none';
     scoreElement.innerText = score;
     scoreBoard.style.display = 'block';
-    leaderboardElement.style.display = 'none';
     questionContainer.style.display = 'block';
     thankYouContainer.style.display = 'none';
     playerNameDisplay.innerText = playerName;
@@ -133,52 +130,4 @@ function showQuestion(question) {
 }
 
 function selectAnswer(answer) {
-    if (answer.correct) {
-        score++;
-        alert('Correct!');
-    } else {
-        alert('Wrong answer. Try again!');
-    }
-    scoreElement.innerText = score;
-    clearInterval(timer);
-    nextButton.style.display = 'block';
-}
-
-function startTimer() {
-    timeLeft = 10;
-    timerElement.innerText = timeLeft;
-    timer = setInterval(() => {
-        timeLeft--;
-        timerElement.innerText = timeLeft;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert('Time is up! Moving to the next question.');
-            nextButton.style.display = 'block';
-        }
-    }, 1000);
-}
-
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion(questions[currentQuestionIndex]);
-        nextButton.style.display = 'none';
-        startTimer();
-    } else {
-        showThankYouPage();
-    }
-});
-
-function showThankYouPage() {
-    questionContainer.style.display = 'none';
-    scoreBoard.style.display = 'none';
-    thankYouContainer.style.display = 'block';
-    finalScoreElement.innerText = score;
-    thankYouContainer.classList.add('show');
-}
-
-restartButton.addEventListener('click', () => {
-    thankYouContainer.style.display = 'none';
-    nameContainer.style.display = 'block';
-    playerNameInput.value = '';
-});
+    if (answer.correct)
