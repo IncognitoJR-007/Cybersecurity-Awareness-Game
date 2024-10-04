@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Awareness Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cybersecurity Awareness Game</h1>
+        <div id="score-board">
+            <h2>Score: <span id="score">0</span></h2>
+            <h2>Time left: <span id="timer">10</span> seconds</h2>
+        </div>
+        <div id="question-container">
+            <h2 id="question"></h2>
+            <div id="answer-buttons" class="btn-container">
+                <button class="btn" id="btn0"></button>
+                <button class="btn" id="btn1"></button>
+                <button class="btn" id="btn2"></button>
+                <button class="btn" id="btn3"></button>
+            </div>
+        </div>
+        <button id="next-button" class="btn" style="display: none;">Next Question</button>
+        <div id="leaderboard" style="display: none;">
+            <h2>Leaderboard</h2>
+            <ul id="leaderboard-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
