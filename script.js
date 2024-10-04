@@ -92,19 +92,18 @@ let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let timeLeft = 10;
-let playerName = '';
 
 startButton.addEventListener('click', () => {
-    playerName = playerNameInput.value.trim();
+    const playerName = playerNameInput.value.trim();
     if (playerName) {
         nameContainer.style.display = 'none';
-        startGame();
+        startGame(playerName);
     } else {
         alert('Please enter your name before starting the game.');
     }
 });
 
-function startGame() {
+function startGame(playerName) {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.style.display = 'none';
@@ -117,10 +116,24 @@ function startGame() {
     startTimer();
 }
 
+function startTimer() {
+    timeLeft = 10;
+    timerElement.innerText = timeLeft;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert('Time is up!');
+            nextQuestion();
+        }
+    }, 1000);
+}
+
 function showQuestion(question) {
     questionElement.innerText = question.question;
     answerButtons.innerHTML = '';
-    question.answers.forEach((answer, index) => {
+    question.answers.forEach((answer) => {
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
@@ -130,4 +143,37 @@ function showQuestion(question) {
 }
 
 function selectAnswer(answer) {
-    if (answer.correct)
+    clearInterval(timer);
+    if (answer.correct) {
+        score++;
+        scoreElement.innerText = score;
+        alert('Correct!');
+    } else {
+        alert('Wrong!');
+    }
+    nextButton.style.display = 'block';
+}
+
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion(questions[currentQuestionIndex]);
+        startTimer();
+    } else {
+        finishGame();
+    }
+});
+
+function finishGame() {
+    clearInterval(timer);
+    questionContainer.style.display = 'none';
+    scoreBoard.style.display = 'none';
+    thankYouContainer.style.display = 'block';
+    finalScoreElement.innerText = score;
+}
+
+restartButton.addEventListener('click', () => {
+    thankYouContainer.style.display = 'none';
+    nameContainer.style.display = 'block';
+    playerNameInput.value = '';
+});
