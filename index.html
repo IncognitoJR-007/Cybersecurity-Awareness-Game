@@ -9,11 +9,19 @@
 <body>
     <div class="container">
         <h1>Cybersecurity Awareness Game</h1>
-        <div id="score-board">
+        
+        <div id="name-container">
+            <h2>Enter your name:</h2>
+            <input type="text" id="player-name" placeholder="Your Name">
+            <button id="start-button" class="btn">Start Game</button>
+        </div>
+
+        <div id="score-board" style="display: none;">
             <h2>Score: <span id="score">0</span></h2>
             <h2>Time left: <span id="timer">10</span> seconds</h2>
         </div>
-        <div id="question-container">
+
+        <div id="question-container" style="display: none;">
             <h2 id="question"></h2>
             <div id="answer-buttons" class="btn-container">
                 <button class="btn" id="btn0"></button>
@@ -22,10 +30,18 @@
                 <button class="btn" id="btn3"></button>
             </div>
         </div>
+
         <button id="next-button" class="btn" style="display: none;">Next Question</button>
         <div id="leaderboard" style="display: none;">
             <h2>Leaderboard</h2>
             <ul id="leaderboard-list"></ul>
+        </div>
+
+        <div id="thank-you-container" style="display: none;">
+            <h2>Thank You for Participating, <span id="player-name-display"></span>!</h2>
+            <p>Your final score is <span id="final-score"></span>.</p>
+            <p>Keep learning about cybersecurity!</p>
+            <button id="restart-button" class="btn">Restart Game</button>
         </div>
     </div>
 
