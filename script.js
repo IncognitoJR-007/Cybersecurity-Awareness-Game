@@ -122,4 +122,63 @@ function startGame() {
 
 function showQuestion(question) {
     questionElement.innerText = question.question;
-    answerButtons.innerHTML =
+    answerButtons.innerHTML = '';
+    question.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.innerText = answer.text;
+        button.classList.add('btn');
+        button.addEventListener('click', () => selectAnswer(answer));
+        answerButtons.appendChild(button);
+    });
+}
+
+function selectAnswer(answer) {
+    if (answer.correct) {
+        score++;
+        alert('Correct!');
+    } else {
+        alert('Wrong answer. Try again!');
+    }
+    scoreElement.innerText = score;
+    clearInterval(timer);
+    nextButton.style.display = 'block';
+}
+
+function startTimer() {
+    timeLeft = 10;
+    timerElement.innerText = timeLeft;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert('Time is up! Moving to the next question.');
+            nextButton.style.display = 'block';
+        }
+    }, 1000);
+}
+
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion(questions[currentQuestionIndex]);
+        nextButton.style.display = 'none';
+        startTimer();
+    } else {
+        showThankYouPage();
+    }
+});
+
+function showThankYouPage() {
+    questionContainer.style.display = 'none';
+    scoreBoard.style.display = 'none';
+    thankYouContainer.style.display = 'block';
+    finalScoreElement.innerText = score;
+    thankYouContainer.classList.add('show');
+}
+
+restartButton.addEventListener('click', () => {
+    thankYouContainer.style.display = 'none';
+    nameContainer.style.display = 'block';
+    playerNameInput.value = '';
+});
