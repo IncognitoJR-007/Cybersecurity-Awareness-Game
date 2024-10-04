@@ -12,6 +12,7 @@ body {
     background: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
 h1 {
@@ -39,10 +40,22 @@ h1 {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn:hover {
     background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#thank-you-container {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#thank-you-container.show {
+    opacity: 1;
 }
 
 #leaderboard {
