@@ -7,6 +7,13 @@ const scoreElement = document.getElementById('score');
 const timerElement = document.getElementById('timer');
 const leaderboardElement = document.getElementById('leaderboard');
 const leaderboardList = document.getElementById('leaderboard-list');
+const nameContainer = document.getElementById('name-container');
+const playerNameInput = document.getElementById('player-name');
+const startButton = document.getElementById('start-button');
+const thankYouContainer = document.getElementById('thank-you-container');
+const playerNameDisplay = document.getElementById('player-name-display');
+const finalScoreElement = document.getElementById('final-score');
+const restartButton = document.getElementById('restart-button');
 
 const questions = [
     {
@@ -87,85 +94,32 @@ let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let timeLeft = 10;
+let playerName = '';
+
+startButton.addEventListener('click', () => {
+    playerName = playerNameInput.value.trim();
+    if (playerName) {
+        nameContainer.style.display = 'none';
+        startGame();
+    } else {
+        alert('Please enter your name before starting the game.');
+    }
+});
 
 function startGame() {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.style.display = 'none';
     scoreElement.innerText = score;
+    scoreBoard.style.display = 'block';
     leaderboardElement.style.display = 'none';
+    questionContainer.style.display = 'block';
+    thankYouContainer.style.display = 'none';
+    playerNameDisplay.innerText = playerName;
     showQuestion(questions[currentQuestionIndex]);
     startTimer();
 }
 
 function showQuestion(question) {
     questionElement.innerText = question.question;
-    answerButtons.innerHTML = '';
-    question.answers.forEach((answer, index) => {
-        const button = document.createElement('button');
-        button.innerText = answer.text;
-        button.classList.add('btn');
-        button.addEventListener('click', () => selectAnswer(answer));
-        answerButtons.appendChild(button);
-    });
-}
-
-function selectAnswer(answer) {
-    if (answer.correct) {
-        score++;
-        alert('Correct!');
-    } else {
-        alert('Wrong answer. Try again!');
-    }
-    scoreElement.innerText = score;
-    clearInterval(timer);
-    nextButton.style.display = 'block';
-}
-
-function startTimer() {
-    timeLeft = 10;
-    timerElement.innerText = timeLeft;
-    timer = setInterval(() => {
-        timeLeft--;
-        timerElement.innerText = timeLeft;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert('Time is up! Moving to the next question.');
-            nextButton.style.display = 'block';
-        }
-    }, 1000);
-}
-
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion(questions[currentQuestionIndex]);
-        startTimer();
-    } else {
-        alert(`Congratulations! Your final score is ${score}.`);
-        saveScore(score);
-        displayLeaderboard();
-        nextButton.style.display = 'none';
-        startGame();
-    }
-});
-
-function saveScore(score) {
-    const scores = JSON.parse(localStorage.getItem('scores')) || [];
-    scores.push(score);
-    localStorage.setItem('scores', JSON.stringify(scores));
-}
-
-function displayLeaderboard() {
-    const scores = JSON.parse(localStorage.getItem('scores')) || [];
-    scores.sort((a, b) => b - a);
-    leaderboardList.innerHTML = '';
-    scores.forEach((score, index) => {
-        const li = document.createElement('li');
-        li.innerText = `Rank ${index + 1}: ${score}`;
-        leaderboardList.appendChild(li);
-    });
-    leaderboardElement.style.display = 'block';
-}
-
-startGame();
+    answerButtons.innerHTML =
