@@ -26,7 +26,7 @@ To run this project, you need a web browser. No additional software is required.
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/cybersecurity-awareness-game.git
+   git clone https://github.com/IncognitoJR-007/cybersecurity-awareness-game.git
 
 2. **Navigate to the project directory**:
 
